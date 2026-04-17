@@ -1,12 +1,15 @@
 const express = require('express');
+const noteRoutes = require('./routes/note.routes');
+
 const app = express();
 
-// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Routes
-// app.use('/api/users', require('./routes/user.routes'));
+app.use('/api/note', noteRoutes);
 
-// Basic route
+app.use((req, res) => {
+  res.status(404).json({ msg: 'Route not found.' });
+});
 
 module.exports = app;
